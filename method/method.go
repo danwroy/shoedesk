@@ -14,8 +14,6 @@ func Pull(w http.ResponseWriter, r *http.Request){
     // switch r.URL.Path:
     // case "mens"
 
-    // fmt.Fprintf(w, "%v\n\n", r.URL.Path)
-
     path := r.URL.Path
 
     switch {
@@ -36,29 +34,58 @@ func Put(w http.ResponseWriter, r *http.Request){
     // )
 
     var customer Counter
+
+    // JSON decoding and validation
     err := json.NewDecoder(r.Body).Decode(&customer)
 
     if err != nil {
         http.Error(w, "Invalid JSON", http.StatusBadRequest)
+        return
     }
 
-    count := ShoeReturn[customer.Shoes]
+    // Size validation
+    right_size := inRange(customer.Shoes)
 
-    switch customer.Request {
-    case Return:
-        if count > 25 {
-            http.Error(w, "Those can't be our shoes! We're maxed out here!", http.StatusMethodNotAllowed)
-        } else {
-            ShoeReturn[customer.Shoes] += 1
-            fmt.Fprintf(w, "Thanks for returning your size %v %v shoes!", customer.Shoes.Size, customer.Shoes.Sex)
-        }
+    if right_size != true{
+        msg := fmt.Sprintf("I'm sorry, we don't carry %v size %v shoes", customer.Shoes.Sex, customer.Shoes.Size)
+        http.Error(w, msg, http.StatusBadRequest)
+        return
+    }
 
-    case Borrow:
-        if count == 0 {
-            fmt.Fprintf(w, "Sorry, we're out of size %v %v. How about a different size?", customer.Shoes.Size, customer.Shoes.Sex)
-        } else{
-            ShoeReturn[customer.Shoes] -= 1
-            fmt.Fprintf(w, "Here are your size %v %v shoes - please return them before end of day!", customer.Shoes.Size, customer.Shoes.Sex)
+    // For now, restricted to home '/' endpoint
+    if r.URL.Path == "/" {
+
+        count := ShoeReturn[customer.Shoes]
+
+        switch customer.Request {
+        case Return:
+            if count > 25 {
+                http.Error(w, "Those can't be our shoes! We're maxed out here!\n", http.StatusMethodNotAllowed)
+            } else {
+                ShoeReturn[customer.Shoes] += 1
+                fmt.Fprintf(w, "Thanks for returning your %v size %v shoes!\n", customer.Shoes.Size, customer.Shoes.Sex)
+            }
+
+        case Borrow:
+            if count == 0 {
+                msg := fmt.Sprintf("Sorry, we're out of %v size %v. How about a different size?\n", customer.Shoes.Size, customer.Shoes.Sex)
+                http.Error(w, msg, http.StatusMethodNotAllowed)
+            } else{
+                ShoeReturn[customer.Shoes] -= 1
+                fmt.Fprintf(w, "Here are your %v size %v shoes - please return them before end of day!\n", customer.Shoes.Size, customer.Shoes.Sex)
+            }
         }
+    }
+}
+
+// To validate shoe size by comparing against rage per sex
+func inRange(shoe Shoes) bool{
+    switch {
+    case shoe.Size < Limits[shoe.Sex].Min:
+        return false
+    case shoe.Size > Limits[shoe.Sex].Max:
+        return false
+    default:
+        return true
     }
 }

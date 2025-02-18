@@ -2,7 +2,7 @@ package method
 
 import (
     "fmt"
-    "strings"
+    // "strings"
 )
 
 func Cubby(sex Sex) string {
