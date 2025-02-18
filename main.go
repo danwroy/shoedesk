@@ -1,0 +1,23 @@
+package main
+
+import (
+    "net/http"
+    "goAPI/method"
+    // "sync"
+)
+
+func main() {
+    http.HandleFunc("/", handler)
+    http.ListenAndServe(":8080", nil)
+}
+
+func handler(w http.ResponseWriter, r *http.Request){
+    switch r.Method {
+
+    case "GET":
+        method.Pull(w, r)
+
+    case "POST":
+        method.Put(w, r)
+    }
+}
