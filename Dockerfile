@@ -6,3 +6,4 @@ WORKDIR /app
 RUN CGO_ENABLED=0 GOOS=linux go build -o shoedesk
 EXPOSE 8080
 CMD ["/app/shoedesk"]
+# Had to add full path
