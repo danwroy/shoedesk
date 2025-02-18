@@ -4,6 +4,8 @@ import (
     "fmt"
     "net/http"
     "encoding/json"
+    "math/rand"
+    "time"
     // "sync"
 )
 
@@ -60,7 +62,7 @@ func Put(w http.ResponseWriter, r *http.Request){
 
         switch customer.Request {
         case Return:
-            if count > 25 {
+            if count > ShoeMax {
                 http.Error(w, "Those can't be our shoes! We're maxed out here!\n", http.StatusMethodNotAllowed)
             } else {
                 ShoeReturn[customer.Shoes] += 1
@@ -88,5 +90,19 @@ func inRange(shoe Shoes) bool{
         return false
     default:
         return true
+    }
+}
+
+// Initialize cubby with random numbers
+func CubbyStart(max int){
+    men := Limits[M].Max
+    women := Limits[W].Max
+    rand.Seed(time.Now().UnixNano())
+
+    for size := men; size >= Limits[M].Min; size--{
+        ShoeReturn[Shoes{size, M}] = rand.Intn(max)
+    }
+    for size := women; size >= Limits[W].Min; size--{
+        ShoeReturn[Shoes{size, W}] = rand.Intn(max)
     }
 }

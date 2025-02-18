@@ -1,7 +1,5 @@
 package method
 
-// import "sync"
-
 type Shoes struct {
     Size    int             `json:"size"`
     Sex                     `json:"sex"`
@@ -28,7 +26,7 @@ const (
 )
 
 var (
-	ShoeReturn  map[Shoes]uint8 = make(map[Shoes]uint8)     // Create dict representing shoe return
+	ShoeReturn  map[Shoes]int = make(map[Shoes]int)     // Create dict representing shoe return
 
     Limits      map[Sex]Limit = make(map[Sex]Limit)         // Defined @ settings.go
 	// Mu          sync.Mutex
