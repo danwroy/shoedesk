@@ -25,7 +25,7 @@ func Pull(w http.ResponseWriter, r *http.Request){
     case path == "/womens":
         fmt.Fprintf(w, Cubby(W))
     default:
-        fmt.Fprintf(w, "Welcome to the shoe counter\n\n")
+        fmt.Fprintf(w, "Welcome to the shoe desk\n\n")
         fmt.Fprintf(w, "Please visit either /mens or /womens to see what we have in stock")
     }
 }
