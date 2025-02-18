@@ -4,6 +4,7 @@ import (
     "fmt"
     "net/http"
     "encoding/json"
+    // "sync"
 )
 
 func Pull(w http.ResponseWriter, r *http.Request){
