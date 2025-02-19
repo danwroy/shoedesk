@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shoedesk
+  labels:
+    app: shoedesk
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shoedesk
+  template:
+    metadata:
+      labels:
+        app: shoedesk
+    spec:
+      containers:
+        - name: shoedesk
+          image: docker.io/danwroy/shoedesk:latest
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Always
