@@ -7,7 +7,7 @@ type Shoes struct {
 
 type Counter struct {
     Request                 `json:"request"`
-    Shoes                   `json:"shoes,inline"`
+    Shoes                   `json:"shoes"`
 }
 
 type Limit struct {

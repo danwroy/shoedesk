@@ -3,7 +3,6 @@ package main
 import (
     "net/http"
     "goAPI/method"
-    // "sync"
 )
 
 func main() {

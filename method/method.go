@@ -6,7 +6,7 @@ import (
     "encoding/json"
     "math/rand"
     "time"
-    // "sync"
+    // "sync"   -- Doesn't appear to require mutex
 )
 
 func Pull(w http.ResponseWriter, r *http.Request){
@@ -47,9 +47,9 @@ func Put(w http.ResponseWriter, r *http.Request){
     }
 
     // Size validation
-    right_size := inRange(customer.Shoes)
+    right_size := InRange(customer.Shoes)
 
-    if right_size != true{
+    if right_size == false{
         msg := fmt.Sprintf("I'm sorry, we don't carry %v size %v shoes", customer.Shoes.Sex, customer.Shoes.Size)
         http.Error(w, msg, http.StatusBadRequest)
         return
@@ -78,31 +78,5 @@ func Put(w http.ResponseWriter, r *http.Request){
                 fmt.Fprintf(w, "Here are your %v size %v shoes - please return them before end of day!\n", customer.Shoes.Size, customer.Shoes.Sex)
             }
         }
-    }
-}
-
-// To validate shoe size by comparing against rage per sex
-func inRange(shoe Shoes) bool{
-    switch {
-    case shoe.Size < Limits[shoe.Sex].Min:
-        return false
-    case shoe.Size > Limits[shoe.Sex].Max:
-        return false
-    default:
-        return true
-    }
-}
-
-// Initialize cubby with random numbers
-func CubbyStart(max int){
-    men := Limits[M].Max
-    women := Limits[W].Max
-    rand.Seed(time.Now().UnixNano())
-
-    for size := men; size >= Limits[M].Min; size--{
-        ShoeReturn[Shoes{size, M}] = rand.Intn(max)
-    }
-    for size := women; size >= Limits[W].Min; size--{
-        ShoeReturn[Shoes{size, W}] = rand.Intn(max)
     }
 }
