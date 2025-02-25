@@ -2,12 +2,12 @@ package method
 
 type Shoes struct {
     Size    int             `json:"size"`
-    Sex                     `json:"sex"`
+    Sex     Sex             `json:"sex"`
 }
 
 type Counter struct {
-    Request                 `json:"request"`
-    Shoes                   `json:"shoes"`
+    Request Request          `json:"request"`
+    Shoes   Shoes            `json:inline`
 }
 
 type Limit struct {
@@ -15,8 +15,8 @@ type Limit struct {
     Max int                 `json:"max"`
 }
 
-type Sex string             //`json:"sex"`
-type Request string         //`json:"request"`
+type Sex string
+type Request string
 
 const (
     M Sex = "mens"
@@ -27,7 +27,5 @@ const (
 
 var (
 	ShoeReturn  map[Shoes]int = make(map[Shoes]int)     // Create dict representing shoe return
-
-    Limits      map[Sex]Limit = make(map[Sex]Limit)         // Defined @ settings.go
-	// Mu          sync.Mutex
+    Limits      map[Sex]Limit = make(map[Sex]Limit)     // Defined @ settings.go
 )

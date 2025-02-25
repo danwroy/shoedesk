@@ -4,9 +4,8 @@ import (
     "fmt"
     "net/http"
     "encoding/json"
-    "math/rand"
-    "time"
-    // "sync"   -- Doesn't appear to require mutex
+    // "math/rand"
+    // "time"
 )
 
 func Pull(w http.ResponseWriter, r *http.Request){
@@ -30,16 +29,15 @@ func Pull(w http.ResponseWriter, r *http.Request){
     }
 }
 
+// POST methods - borrow and return
 func Put(w http.ResponseWriter, r *http.Request){
-
-    // fmt.Fprintf(w,
-    //     TempMessage("No memory now - sorry!", r),
-    // )
 
     var customer Counter
 
     // JSON decoding and validation
     err := json.NewDecoder(r.Body).Decode(&customer)
+
+    fmt.Println(customer)
 
     if err != nil {
         http.Error(w, "Invalid JSON", http.StatusBadRequest)

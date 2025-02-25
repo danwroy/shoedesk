@@ -1,5 +1,10 @@
 package method
 
+import (
+    "time"
+    "math/rand"
+)
+
 // To validate shoe size by comparing against rage per sex
 func InRange(shoe Shoes) bool{
     switch {
@@ -25,4 +30,3 @@ func CubbyStart(max int){
         ShoeReturn[Shoes{size, W}] = rand.Intn(max)
     }
 }
-
