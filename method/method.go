@@ -4,6 +4,8 @@ import (
     "fmt"
     "net/http"
     "encoding/json"
+    "io"
+    "log"
     // "math/rand"
     // "time"
 )
@@ -32,17 +34,25 @@ func Pull(w http.ResponseWriter, r *http.Request){
 // POST methods - borrow and return
 func Put(w http.ResponseWriter, r *http.Request){
 
-    var customer Counter
+    // var customer Counter
+    customer := Counter{}
+
+    body, err := io.ReadAll(r.Body)
+    if err != nil {
+        log.Fatalf("Issue decoding body:", err)
+        // fmt.Fprintf(w, "error")
+    }
 
     // JSON decoding and validation
-    err := json.NewDecoder(r.Body).Decode(&customer)
+    // err := json.NewDecoder(r.Body).Decode(&customer)
 
-    fmt.Println(customer)
-
-    if err != nil {
+    jerr := json.Unmarshal(body, &customer)
+    if jerr != nil {
         http.Error(w, "Invalid JSON", http.StatusBadRequest)
         return
     }
+
+    fmt.Println(customer)
 
     // Size validation
     right_size := InRange(customer.Shoes)

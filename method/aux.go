@@ -1,8 +1,12 @@
 package method
 
 import (
+    // "fmt"
     "time"
     "math/rand"
+    "encoding/json"
+    // "strconv"
+    "log"
 )
 
 // To validate shoe size by comparing against rage per sex
@@ -29,4 +33,30 @@ func CubbyStart(max int){
     for size := women; size >= Limits[W].Min; size--{
         ShoeReturn[Shoes{size, W}] = rand.Intn(max)
     }
+}
+
+// func (c Counter) MarshalJSON() ([]byte, error) {
+//
+//     inlined := type struct {Request, Size, Sex}
+//
+//     inlined {c.Request, c.Shoes.Size, c.Shoes.Sex}
+//
+// 	return json.Marshal(s)
+// }
+
+func (c *Counter) UnmarshalJSON(b []byte) error {
+
+    var s map[string]any
+
+    err := json.Unmarshal(b, &s)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    request, size, sex := s["request"], s["size"], s["sex"]
+
+    c.Request, c.Shoes.Size, c.Shoes.Sex = request.(Request), size.(int), sex.(Sex)
+    // The <var>.(<type>) is type assertion; required by engine
+
+    return nil
 }

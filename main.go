@@ -2,7 +2,7 @@ package main
 
 import (
     "net/http"
-    "goAPI/method"
+    "shoedesk/method"
 )
 
 func main() {
