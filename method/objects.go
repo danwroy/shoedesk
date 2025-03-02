@@ -22,8 +22,7 @@ const (
 
 type Shoes struct {
     Size    int             `json:"size"`
-    Sex     string          `json:"sex"`
-    // note - defined differently than Sex type
+    Sex     Sex             `json:"sex"`
 }
 
 type Customer struct {
@@ -39,7 +38,6 @@ type Def struct {
 }
 
 
-// Define in-memory storage items
 var (
 
     ShoeReturn      map[Shoes]int = make(map[Shoes]int)             // In-memory shoe return

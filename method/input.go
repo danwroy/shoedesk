@@ -6,7 +6,7 @@ import (
     "math/rand"
     "encoding/json"
     // "strconv"
-    "log"
+    // "log"
 )
 
 /// Input processing
@@ -23,17 +23,11 @@ func InRange(shoe Shoes) bool{
     }
 }
 
-// Initialize cubby with random numbers
-func CubbyStart(max int){
+/// Convert string values to proper value
+func (e Exchange) String() string{
+    return Params[e].Name
+}
 
-    rand.Seed(time.Now().UnixNano())
-
-    for sex, p in Params{
-
-        size := p.Max
-
-        for size := max; size >= p.Min; size-- {
-            ShoeReturn[Shoes{size, sex}] = rand.Intn(max)
-        }
-    }
+func (s Sex) String() string{
+    return Params[s].Name
 }

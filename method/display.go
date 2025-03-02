@@ -2,7 +2,6 @@ package method
 
 import (
     "fmt"
-    // "strings"
 )
 
 // To display a representation of a shoe return cubby
@@ -25,4 +24,17 @@ func Cubby(sex Sex) string {
         }
     }
     return cubby
+}
+
+// Initialize cubby with random numbers
+func CubbyStart(max int){
+
+    rand.Seed(time.Now().UnixNano())
+
+    for sex, p in Params{
+
+        for size := p.Min; size < p.Max; size++ {
+            ShoeReturn[Shoes{size, sex}] = rand.Intn(max)
+        }
+    }
 }
