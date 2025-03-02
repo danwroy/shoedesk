@@ -21,7 +21,7 @@ func handler(w http.ResponseWriter, r *http.Request){
     case "GET":
         method.Pull(w, r)
 
-    case "POST":
-        method.Put(w, r)
+    case "PATCH":
+        method.Update(w, r)
     }
 }

@@ -5,13 +5,12 @@ import (
     // "strings"
 )
 
+// To display a representation of a shoe return cubby
 func Cubby(sex Sex) string {
-    min := Limits[sex].Min          // see: settings.go
-    max := Limits[sex].Max
-    // min := 4
-    // max := 16
-    col := 0                        // iterated to find cubby width
-    cubby := "||"                    // cubby is a text object; lead with outer formatting
+    min := Params[sex].Min          // see: settings.go
+    max := Params[sex].Max
+    col := 0                        //  iterated to find cubby width
+    cubby := "||"                   // cubby is a text object; lead with outer formatting
 
     for size := min; size <= max; size++ {
 

@@ -1,59 +1,55 @@
 package method
 
-type Shoes struct {
-    Size    int             `json:"size"`
-    Sex     int             `json:"sex"`
-}
 
-type Counter struct {
-    Request boolean         `json:"request"`
-    Shoes   Shoes           `json:",inline"`
-}
-
-type Limit struct {
-    Min int                 `json:"min"`
-    Max int                 `json:"max"`
-}
-
+// Doing an enum approximate using golang patterns
+// A. Define as types (int for iota definition)
 type Sex int
-type Request int
+type Exchange int
 
+// B. Define as constants with iota
+// (from 1 so that 0 can indicate error)
 const (
-    M Sex = iota
+    M Sex = iota + 1
     W Sex
 )
 
 const (
-    Borrow Request = iota
+    Borrow Request = iota + 1
     Return Request
 )
 
-// return string for Sex value
-func (sx Sex) String() string {
-    return [...]{"men's", "women's"}[sx]
+
+// Define objects
+
+type Shoes struct {
+    Size    int             `json:"size"`
+    Sex     Sex             `json:"sex"`
 }
 
-// return Sex value for string
-func SexToInt(sx string) (int, error){
-
-    lookup := map[string]int{"men's":0, "women's":1}
-
-    sex, ok := lookup[sx]
-    if !ok {
-        return fmt.Errorf("%s is incorrect, \"men's\" or \"women's\" only please", sx)
-    }
-    return sex
+type Customer struct {
+    Exchange    Exchange    `json:"exchange"`
+    Shoes
 }
 
-// return string for Request value
-func (rq Request) String() string (
-    return [...]string{"borrow", "return"}[rq]
-)
+// type Limits struct {
+//     Min int                 `json:"min"`
+//     Max int                 `json:"max"`
+// }
 
+//
+type Def struct {
+    Name    string          // string representation of sex
+    Min     int             // max size of shoe
+    Max     int             // min size
+}
+
+// type Parameters [...]string
+
+// Define in-memory storage items
 var (
-    ShoeReturn  map[Shoes]int = make(map[Shoes]int)                                             // Create dict representing shoe return
-    Limits      map[string]Limit = make(map[string]Limit)                                       // Defined @ settings.go
-    // SexStr      map[boolean]string = map[boolean]string{true: "men's", false: "women's"})       // Map boolean to sex
-    // RequestStr  map[boolean]string = map[boolean]string{true: "borrow", false:"return"})        // Map boolean to request type
+
+    ShoeReturn      map[Shoes]int = make(map[Shoes]int)             // In-memory shoe return
+    Params          map[Sex]Def = make(map[Sex]Def)                 // Defined at settings.go
+
 )
 

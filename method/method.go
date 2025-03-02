@@ -32,10 +32,10 @@ func Pull(w http.ResponseWriter, r *http.Request){
 }
 
 // POST methods - borrow and return
-func Put(w http.ResponseWriter, r *http.Request){
+func Update(w http.ResponseWriter, r *http.Request){
 
     // var customer Counter
-    customer := Counter{}
+    customer := Customer{}
 
     body, err := io.ReadAll(r.Body)
     if err != nil {
