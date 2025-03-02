@@ -1,7 +1,7 @@
 package method
 
 
-// Doing an enum approximate using golang patterns
+//// Doing an enum approximate using golang patterns
 // A. Define as types (int for iota definition)
 type Sex int
 type Exchange int
@@ -12,18 +12,18 @@ const (
     M Sex = iota + 1
     W Sex
 )
-
 const (
-    Borrow Request = iota + 1
-    Return Request
+    Borrow Exchange = iota + 1
+    Return Exchange
 )
 
 
-// Define objects
+//// Define objects
 
 type Shoes struct {
     Size    int             `json:"size"`
-    Sex     Sex             `json:"sex"`
+    Sex     string          `json:"sex"`
+    // note - defined differently than Sex type
 }
 
 type Customer struct {
@@ -31,19 +31,13 @@ type Customer struct {
     Shoes
 }
 
-// type Limits struct {
-//     Min int                 `json:"min"`
-//     Max int                 `json:"max"`
-// }
-
-//
+// Special metadata object for shoe type (sex)
 type Def struct {
     Name    string          // string representation of sex
     Min     int             // max size of shoe
     Max     int             // min size
 }
 
-// type Parameters [...]string
 
 // Define in-memory storage items
 var (
