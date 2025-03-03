@@ -68,7 +68,7 @@ func Update(w http.ResponseWriter, r *http.Request){
 
         count := ShoeReturn[customer.Shoes]
 
-        switch customer.Request {
+        switch customer.Exchange {
         case Return:
             if count > ShoeMax {
                 http.Error(w, "Those can't be our shoes! We're maxed out here!\n", http.StatusMethodNotAllowed)

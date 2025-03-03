@@ -8,7 +8,7 @@ import (
 func main() {
 
     // initialize cubby
-    method.CubbyStart(method.ShoeMax)
+    method.FillReturn(method.ShoeMax)
 
     http.HandleFunc("/", handler)
     http.ListenAndServe(":8080", nil)

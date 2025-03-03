@@ -2,6 +2,8 @@ package method
 
 import (
     "fmt"
+    "time"
+    "math/rand"
 )
 
 // To display a representation of a shoe return cubby
@@ -19,7 +21,7 @@ func Cubby(sex Sex) string {
         
         // row break set if RowLength met
         col += 1
-        if col % RowLength == 0 {
+        if col % CubbyWidth == 0 {
             cubby += "|\n||"
         }
     }
@@ -27,11 +29,11 @@ func Cubby(sex Sex) string {
 }
 
 // Initialize cubby with random numbers
-func CubbyStart(max int){
+func FillReturn(max int){
 
     rand.Seed(time.Now().UnixNano())
 
-    for sex, p in Params{
+    for sex, p := range Params{
 
         for size := p.Min; size < p.Max; size++ {
             ShoeReturn[Shoes{size, sex}] = rand.Intn(max)

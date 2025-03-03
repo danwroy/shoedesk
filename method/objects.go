@@ -10,19 +10,24 @@ type Exchange int
 // (from 1 so that 0 can indicate error)
 const (
     M Sex = iota + 1
-    W Sex
+    W
 )
 const (
     Borrow Exchange = iota + 1
-    Return Exchange
+    Return
 )
+
+// Allows combining operations on both
+type Constants interface {
+    Sex | Exchange
+}
 
 
 //// Define objects
 
 type Shoes struct {
-    Size    int             `json:"size"`
-    Sex     Sex             `json:"sex"`
+    Size        int         `json:"size"`
+    Sex         Sex         `json:"sex"`
 }
 
 type Customer struct {
@@ -30,18 +35,29 @@ type Customer struct {
     Shoes
 }
 
+
 // Special metadata object for shoe type (sex)
-type Def struct {
+
+type Def[T any] struct {
     Name    string          // string representation of sex
-    Min     int             // max size of shoe
-    Max     int             // min size
+    Set     T               // allows optional settings to be mapped
 }
 
+// [Set] option
+type SizeRange struct {
+    Min int
+    Max int
+    }
+
+
+// All terms for M/W
+type Args = [...]string
 
 var (
 
-    ShoeReturn      map[Shoes]int = make(map[Shoes]int)             // In-memory shoe return
-    Params          map[Sex]Def = make(map[Sex]Def)                 // Defined at settings.go
+    ShoeReturn      map[Shoes]int = make(map[Shoes]int)                     // In-memory shoe return
+    Params          map[Constants]Def = make(map[Constants]Def)                   // Defined at settings.go
+    StringRep       map[string]Constants = make(map[string]Constants)       // Map strings to constants
 
 )
 
