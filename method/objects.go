@@ -24,7 +24,6 @@ type Constants interface {
 
 
 //// Define objects
-
 type Shoes struct {
     Size        int         `json:"size"`
     Sex         Sex         `json:"sex"`
@@ -36,8 +35,8 @@ type Customer struct {
 }
 
 
-// Special metadata object for shoe type (sex)
-
+// Special metadata object for Params
+// Any kind of [Set] option can be defined
 type Def[T any] struct {
     Name    string          // string representation of sex
     Set     T               // allows optional settings to be mapped
@@ -50,14 +49,10 @@ type SizeRange struct {
     }
 
 
-// All terms for M/W
-type Args = [...]string
-
 var (
 
     ShoeReturn      map[Shoes]int = make(map[Shoes]int)                     // In-memory shoe return
-    Params          map[Constants]Def = make(map[Constants]Def)                   // Defined at settings.go
-    StringRep       map[string]Constants = make(map[string]Constants)       // Map strings to constants
+    Params          map[Constants]Def = make(map[Constants]Def)             // Defined at settings.go
+    GetConst        map[string]Constants = make(map[string]Constants)       // Map strings to constants
 
 )
-

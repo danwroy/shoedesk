@@ -19,50 +19,22 @@ func InRange(shoe Shoes) bool{
 }
 
 // Return string for sex (set at settings.go)
-func (s Sex) String() string{
-    return Params[s].Name
+func (c *Constants) String() string{
+    return Params[c].Name
 }
-
-// Return string for Exchange type
-func (e Exchange) String() string{
-    switch e {
-    case Borrow:
-        return "borrow"
-    case Return:
-        return "return"
-    default:
-        return ""
-    }
-}
-
-// const (
-//
-// ArgsM Args = Args{
-//         "men's", "mens", "man's", "mans", "man", "male", "boy's", "boys", "guy's", "guys", "m"
-//     }
-// ArgsW Args = Args{
-//         "men's", "womens", "woman's", "womans", "woman", "female", "girl", "girl's", "girls", "ladies", "lady's", "w", "f", "l"
-//     }
-// ArgsBorrow Args = Args{
-//         "borrow", "rent", "take", "get", "lift"
-//     }
-// ArgsReturn Args = Args{
-//         "return", "leave", "give", "yield", "bring"
-//     }
-//
-// )
 
 // Unmarshaler to convert 
-func (c *Customer) UnmarshalJSON(b []byte) error{
+func (c Customer) UnmarshalJSON(b []byte) {
 
     input := struct{
-        exchange: string
-        size: int
-        sex: string
+        exchange    string
+        size        int
+        sex         string
     }
 
     if err := json.Unmarshal(b, &input); err != nil{
         return err
     }
 
+    return Customer{input.exchange, Shoes{input.size, input.sex}}
 }

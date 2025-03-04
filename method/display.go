@@ -33,10 +33,14 @@ func FillReturn(max int){
 
     rand.Seed(time.Now().UnixNano())
 
-    for sex, p := range Params{
+    for c, p := range Params{
 
-        for size := p.Min; size < p.Max; size++ {
-            ShoeReturn[Shoes{size, sex}] = rand.Intn(max)
+        if c == Sex {
+
+            sex := c
+            for size := p.Min; size < p.Max; size++ {
+                ShoeReturn[Shoes{size, sex}] = rand.Intn(max)
+            }
         }
     }
 }
