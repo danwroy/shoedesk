@@ -13,14 +13,9 @@ const (
     W
 )
 const (
-    Borrow Exchange = iota + 1
-    Return
+    borrow Exchange = iota + 1
+    return
 )
-
-// Allows combining operations on both
-type Constants interface {
-    Sex | Exchange
-}
 
 
 //// Define objects
@@ -35,24 +30,28 @@ type Customer struct {
 }
 
 
-// Special metadata object for Params
-// Any kind of [Set] option can be defined
-type Def[T any] struct {
-    Name    string          // string representation of sex
-    Set     T               // allows optional settings to be mapped
+// Special metadata object
+// Any kind of [set] option can be defined
+// Define metadata at settings.go file
+type def[T any] struct {
+    name    string          // string representation
+    set     *T              // any chosen additional settings
 }
 
-// [Set] option
-type SizeRange struct {
-    Min int
-    Max int
+// To define shoe range
+type sizes struct {
+    min int
+    max int
     }
+
+// A special type/value to represent nothing
+type x bool
 
 
 var (
 
-    ShoeReturn      map[Shoes]int = make(map[Shoes]int)                     // In-memory shoe return
-    Params          map[Constants]Def = make(map[Constants]Def)             // Defined at settings.go
-    GetConst        map[string]Constants = make(map[string]Constants)       // Map strings to constants
+    ShoeReturn      map[Shoes]int = make(map[Shoes]int)                         // In-memory shoe return
+    paramsSex       map[Sex]def[sizes] = make(map[Sex]def[sizes])               // string repr + shoe size range
+    paramsExchange  map[Exchange]def[x] = make(map[Exchange]def[x])             // string repr only
 
 )

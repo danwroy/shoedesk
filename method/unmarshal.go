@@ -7,9 +7,9 @@ import (
 
 func (sx *Sex) UnmarshalText(text byte[]) {
     switch string(text){
-    case "men's":
+    case M.String():
         *sx = M
-    case "women's":
+    case W.String():
         *sx = W
     default:
         return fmt.Errorf("'%v' not valid: '%s' or '%s' please", text, M, W)
@@ -18,11 +18,11 @@ func (sx *Sex) UnmarshalText(text byte[]) {
 
 func (e *Exchange) UnmarshalText(text byte[]){
     switch string(text){
-    case "borrow":
-        *e = Borrow
-    case "return":
-        *e = Return
+    case borrow.String():
+        *e = borrow
+    case return.String():
+        *e = return
     default:
-        return fmt.Errorf("'%v' not valid: '%s' or '%s' please", text, Borrow, Return)
+        return fmt.Errorf("'%v' not valid: '%s' or '%s' please", text, borrow, return)
     }
 }

@@ -10,7 +10,7 @@ import (
 // To validate shoe size by comparing against rage per sex
 func InRange(shoe Shoes) bool{
     sex, size := shoe.Sex, shoe.Size 
-    min, max := Params[sex].Min, Params[sex].Max
+    min, max := Params[sex].min, Params[sex].max
     if min <= size && size <= max {
         return true
     } else {
@@ -19,22 +19,10 @@ func InRange(shoe Shoes) bool{
 }
 
 // Return string for sex (set at settings.go)
-func (c *Constants) String() string{
-    return Params[c].Name
-}
+func (c *Sex) String() string{
+    return paramsSex[c].name
+)
 
-// Unmarshaler to convert 
-func (c Customer) UnmarshalJSON(b []byte) {
-
-    input := struct{
-        exchange    string
-        size        int
-        sex         string
-    }
-
-    if err := json.Unmarshal(b, &input); err != nil{
-        return err
-    }
-
-    return Customer{input.exchange, Shoes{input.size, input.sex}}
+func (c *Exchange) String() string{
+    return paramsExchange[c].name
 }
