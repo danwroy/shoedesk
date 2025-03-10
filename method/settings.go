@@ -9,18 +9,18 @@ var (
 
 )
 
-// Define parameters for key constants
+// Define enum constants at objects.go
 var (
 
     // String representation for Sex constants
     M_name = "men's"
     W_name = "women's"
 
-    // Shoe size range
+    // Shoe size range per Sex
     M_sizes = sizes{4, 16}
     W_sizes = sizes{5, 13}
 
-    // String representation for Exchange constants
+    // String representation for Handoff constants
     borrow_name = "borrow"
     return_name = "return"
 
@@ -28,15 +28,16 @@ var (
 
 
 // Above settings initialized at runtime
+// Be sure to add any necessary initialization process here
 func init() {
 
     // Set parameters per shoe type (by Sex)
     // {string repr, max size, min size}
-    paramsSex[M] = def[sizes]{name: M_name, set:M_sizes}
-    paramsSex[W] = def[sizes]{name: W_name, set:W_sizes}
+    defSex[M] = def[sizes]{name: norm(M_name), set:M_sizes}
+    defSex[W] = def[sizes]{name: norm(W_name), set:W_sizes}
 
-    // Set parameters per Exchange type (name only)
-    paramsExchange[borrow] = def[x]{name: borrow_name}       // The "set" field should return the empty string
-    paramsExchange[return] = def[x]{name: return_name}
+    // Set parameters per Handoff type (name only)
+    defHandoff[borrow] = def[x]{name: norm(borrow_name)}         // The "set" field here should return the empty string
+    defHandoff[return] = def[x]{name: norm(return_name)}
 
 }

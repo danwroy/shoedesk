@@ -16,7 +16,7 @@ func (sx *Sex) UnmarshalText(text byte[]) {
     }
 }
 
-func (e *Exchange) UnmarshalText(text byte[]){
+func (e *Handoff) UnmarshalText(text byte[]){
     switch string(text){
     case borrow.String():
         *e = borrow

@@ -7,9 +7,9 @@ import (
 )
 
 // To display a representation of a shoe return cubby
-func Cubby(sex Sex) string {
-    min := Params[sex].Min          // see: settings.go
-    max := Params[sex].Max
+func Cubby(sex Sex, range sizes) string {
+    min := range.min          // see: settings.go
+    max := range.max
     col := 0                        //  iterated to find cubby width
     cubby := "||"                   // cubby is a text object; lead with outer formatting
 
@@ -33,7 +33,7 @@ func FillReturn(max int){
 
     rand.Seed(time.Now().UnixNano())
 
-    for c, p := range Params{
+    for c, p := range defSex{
 
         if c == Sex {
 

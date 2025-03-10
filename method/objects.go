@@ -4,7 +4,8 @@ package method
 //// Doing an enum approximate using golang patterns
 // A. Define as types (int for iota definition)
 type Sex int
-type Exchange int
+type Handoff int
+// type name string
 
 // B. Define as constants with iota
 // (from 1 so that 0 can indicate error)
@@ -13,7 +14,7 @@ const (
     W
 )
 const (
-    borrow Exchange = iota + 1
+    borrow Handoff = iota + 1
     return
 )
 
@@ -25,7 +26,7 @@ type Shoes struct {
 }
 
 type Customer struct {
-    Exchange    Exchange    `json:"exchange"`
+    Handoff    Handoff      `json:"handoff"`
     Shoes
 }
 
@@ -42,16 +43,16 @@ type def[T any] struct {
 type sizes struct {
     min int
     max int
-    }
+}
 
 // A special type/value to represent nothing
-type x bool
+type x *int
 
 
 var (
 
-    ShoeReturn      map[Shoes]int = make(map[Shoes]int)                         // In-memory shoe return
-    paramsSex       map[Sex]def[sizes] = make(map[Sex]def[sizes])               // string repr + shoe size range
-    paramsExchange  map[Exchange]def[x] = make(map[Exchange]def[x])             // string repr only
+    ShoeReturn      map[Shoes]int = make(map[Shoes]int)             // In-memory shoe return
+    defSex          map[Sex]def[sizes] = make(map[Sex]def[sizes])   // string repr + shoe size range
+    defHandoff      map[Handoff]def[x] = make(map[Handoff]def[x])   // string repr only
 
 )

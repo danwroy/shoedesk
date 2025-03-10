@@ -1,27 +1,48 @@
 package main
 
 import (
+    "fmt"
     "net/http"
-    "shoedesk/method"
+    m "shoedesk/method"
 )
 
 func main() {
 
     // initialize cubby
-    method.FillReturn(method.ShoeMax)
+    m.FillReturn(m.ShoeMax)
 
-    http.HandleFunc("/", handler)
-    http.ListenAndServe(":8080", nil)
+    // using system standard muxer
+    route := http.NewServeMux()
+
+
+    route.HandleFunc("GET /", get)
+    route.HandleFunc("PATCH /", patch)
+    route.HandleFunc("GET /{sex}", get)
+    route.HandleFunc("PATCH /{sex}", patch)
+    route.HandleFunc("GET /{sex}/{size}", get)
+    route.HandleFunc("PATCH /{sex}/{size}", patch)
+
+    server := http.Server{
+        Addr: ":8080",
+        Handler: route
+    }
+
+    // Activate server
+    fmt.Println("Server listening on port ", server.Addr)
+    server.ListenAndServe()
 }
 
 // define how http requests are handled
-func handler(w http.ResponseWriter, r *http.Request){
-    switch r.Method {
 
-    case "GET":
-        method.Pull(w, r)
 
-    case "PATCH":
-        method.Update(w, r)
-    }
-}
+
+// func get(w http.ResponseWriter, r *http.Request){
+//     switch r.Method {
+//
+//     case "GET":
+//         m.Pull(w, r)
+//
+//     case "PATCH":
+//         m.Update(w, r)
+//     }
+// }

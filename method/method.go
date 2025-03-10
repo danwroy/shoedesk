@@ -15,20 +15,27 @@ func Pull(w http.ResponseWriter, r *http.Request){
     //     TempMessage("Request noted!", r),
     //     )
 
-    // switch r.URL.Path:
-    // case "mens"
+    // path := r.URL.Path
 
-    path := r.URL.Path
+    sex, nosex := r.PathValue("sex")
+    size, nosize := r.PathValue("size")
 
-    switch {
-    case path == "/mens":
-        fmt.Fprintf(w, Cubby(M))
-    case path == "/womens":
-        fmt.Fprintf(w, Cubby(W))
-    default:
-        fmt.Fprintf(w, "Welcome to the shoe desk\n\n")
-        fmt.Fprintf(w, "Please visit either /mens or /womens to see what we have in stock")
+    if !nosex {
+
+        if !nosize {
+            fmt.Fprintf(w, Cubby(sex, sizes(size, size)))
+        }
+
+        fmt.Fprintf(w, Cubby(sex, defSex[sex].set))
     }
+
+    fmt.Fprintf(w, "Welcome to the shoe desk\n\n")
+    fmt.Fprintf(w, "See what we have available by checking by /sex \n \
+        or by /sex/size")
+
+}
+
+
 }
 
 // POST methods - borrow and return
@@ -68,7 +75,7 @@ func Update(w http.ResponseWriter, r *http.Request){
 
         count := ShoeReturn[customer.Shoes]
 
-        switch customer.Exchange {
+        switch customer.Handoff {
         case Return:
             if count > ShoeMax {
                 http.Error(w, "Those can't be our shoes! We're maxed out here!\n", http.StatusMethodNotAllowed)
