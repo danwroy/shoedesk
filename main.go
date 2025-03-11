@@ -14,35 +14,20 @@ func main() {
     // using system standard muxer
     route := http.NewServeMux()
 
-
-    route.HandleFunc("GET /", get)
-    route.HandleFunc("PATCH /", patch)
-    route.HandleFunc("GET /{sex}", get)
-    route.HandleFunc("PATCH /{sex}", patch)
-    route.HandleFunc("GET /{sex}/{size}", get)
-    route.HandleFunc("PATCH /{sex}/{size}", patch)
+    // All routed methods
+    route.HandleFunc("GET /", m.Pull)
+    route.HandleFunc("PATCH /", m.Update)
+    route.HandleFunc("GET /{sex}", m.Pull)
+    route.HandleFunc("PATCH /{sex}", m.Update)
+    route.HandleFunc("GET /{sex}/{size}", m.Pull)
+    route.HandleFunc("PATCH /{sex}/{size}", m.Update)
 
     server := http.Server{
         Addr: ":8080",
-        Handler: route
+        Handler: route,
     }
 
     // Activate server
     fmt.Println("Server listening on port ", server.Addr)
     server.ListenAndServe()
 }
-
-// define how http requests are handled
-
-
-
-// func get(w http.ResponseWriter, r *http.Request){
-//     switch r.Method {
-//
-//     case "GET":
-//         m.Pull(w, r)
-//
-//     case "PATCH":
-//         m.Update(w, r)
-//     }
-// }
