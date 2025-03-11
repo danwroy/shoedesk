@@ -65,7 +65,6 @@ func Update(w http.ResponseWriter, r *http.Request){
     }
 
     // JSON decoding and validation
-
     err = json.Unmarshal(body, &customer)
     if err != nil {
         http.Error(w, "Invalid JSON", http.StatusBadRequest)

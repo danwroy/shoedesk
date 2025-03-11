@@ -1,9 +1,6 @@
 package method
 
-import (
-    // "encoding/json"
-    "fmt"
-)
+import "fmt"
 
 /// Need to define custom error message for unmarshallers to work
 // It is defined as an Error() method against a struct

@@ -26,15 +26,8 @@ type Shoes struct {
 
 type Customer struct {
     Handoff     Handoff     `json:"handoff"`
-    Shoes
+    Shoes                   // Has to be defined w/ type def for JSON inline requests
 }
-
-// type Customer struct {
-//     Handoff     Handoff     `json:"handoff"`
-//     Size        int         `json:"size"`
-//     Sex         Sex         `json:"sex"`
-// }
-
 
 type name string
 
@@ -43,7 +36,7 @@ type sizes struct {
     max int
 }
 
-type meta struct {
+type meta struct {          // Will hold info about shoes per sex
     name
     sizes
 }

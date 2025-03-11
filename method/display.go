@@ -25,10 +25,6 @@ func Cubby(sex Sex, sizes sizes) string {
             cubby += "|\n||"
         }
     }
-    // Add final line-double if necessary
-    // if col % CubbyWidth != 0 {
-    //     cubby += "|"
-    // }
     return cubby
 }
 

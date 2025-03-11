@@ -30,5 +30,4 @@ func main() {
     // Activate server
     fmt.Println("Server listening on port ", server.Addr)
     server.ListenAndServe()
-    return
 }

@@ -1,6 +1,5 @@
 package method
 
-// import "fmt"
 
 // Basic system-wide settings below
 var (
