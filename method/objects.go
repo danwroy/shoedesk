@@ -26,7 +26,7 @@ type Shoes struct {
 
 type Customer struct {
     Handoff     Handoff     `json:"handoff"`
-    Shoes                   // Has to be defined w/ type def for JSON inline requests
+    Shoes                   // Has to be defined w/o type def for JSON inline requests
 }
 
 type name string
