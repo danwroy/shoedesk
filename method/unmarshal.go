@@ -1,28 +1,28 @@
 package method
 
 import (
-    "encoding/json"
+    // "encoding/json"
     "fmt"
 )
 
-func (sx *Sex) UnmarshalText(text byte[]) {
+func (sex *Sex) UnmarshalText(text []byte){
     switch string(text){
     case M.String():
-        *sx = M
+        *sex = M
     case W.String():
-        *sx = W
+        *sex = W
     default:
-        return fmt.Errorf("'%v' not valid: '%s' or '%s' please", text, M, W)
+        fmt.Errorf("'%v' not valid: '%s' or '%s' please", text, M, W)
     }
 }
 
-func (e *Handoff) UnmarshalText(text byte[]){
+func (h *Handoff) UnmarshalText(text []byte){
     switch string(text){
-    case borrow.String():
-        *e = borrow
-    case return.String():
-        *e = return
+    case Borrow.String():
+        *h = Borrow
+    case Return.String():
+        *h = Return
     default:
-        return fmt.Errorf("'%v' not valid: '%s' or '%s' please", text, borrow, return)
+        fmt.Errorf("'%v' not valid: '%s' or '%s' please", text, Borrow, Return)
     }
 }

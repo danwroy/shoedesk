@@ -1,7 +1,8 @@
 package method
 
-// Basic system-wide settings below
+// import "fmt"
 
+// Basic system-wide settings below
 var (
 
     CubbyWidth = 5                  // How many columns across will the cubby be
@@ -13,16 +14,16 @@ var (
 var (
 
     // String representation for Sex constants
-    M_name = "men's"
-    W_name = "women's"
+    M_name name = "men's"
+    W_name name = "women's"
 
     // Shoe size range per Sex
-    M_sizes = sizes{4, 16}
-    W_sizes = sizes{5, 13}
+    M_sizes sizes = sizes{4, 16}
+    W_sizes sizes = sizes{5, 13}
 
     // String representation for Handoff constants
-    borrow_name = "borrow"
-    return_name = "return"
+    Borrow_name name = "borrow"
+    Return_name name = "return"
 
 )
 
@@ -33,11 +34,15 @@ func init() {
 
     // Set parameters per shoe type (by Sex)
     // {string repr, max size, min size}
-    defSex[M] = def[sizes]{name: norm(M_name), set:M_sizes}
-    defSex[W] = def[sizes]{name: norm(W_name), set:W_sizes}
+    defSex[M] = meta{name: M_name, sizes: M_sizes}
+    defSex[W] = meta{name: W_name, sizes: W_sizes}
 
     // Set parameters per Handoff type (name only)
-    defHandoff[borrow] = def[x]{name: norm(borrow_name)}         // The "set" field here should return the empty string
-    defHandoff[return] = def[x]{name: norm(return_name)}
+    defHand[Borrow] = Borrow_name 
+    defHand[Return] = Return_name        
+
+    // Initialize string lookup (reverse dictionaries)
+    lookupSex, _   = reverselookup(defSex)
+    lookupHand, _  = reverselookup(defHand)
 
 }
