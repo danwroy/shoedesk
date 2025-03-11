@@ -8,23 +8,27 @@ import (
 
 // To display a representation of a shoe return cubby
 func Cubby(sex Sex, sizes sizes) string {
-    min := sizes.min          // see: settings.go
+    min := sizes.min
     max := sizes.max
-    col := 0                        //  iterated to find cubby width
-    cubby := "||"                   // cubby is a text object; lead with outer formatting
+    col := 0                // Iterated to find cubby width
+    cubby := "||"           // Initial string to build cubby
 
     for size := min; size <= max; size++ {
 
         stock := ShoeReturn[Shoes{size, sex}]
 
         cubby += fmt.Sprintf(" %2d (%-2d pairs) |", size, stock)
-        
+
         // row break set if RowLength met
         col += 1
         if col % CubbyWidth == 0 {
             cubby += "|\n||"
         }
     }
+    // Add final line-double if necessary
+    // if col % CubbyWidth != 0 {
+    //     cubby += "|"
+    // }
     return cubby
 }
 

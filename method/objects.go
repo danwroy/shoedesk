@@ -17,7 +17,6 @@ const (
     Return
 )
 
-
 //// Define objects
 
 type Shoes struct {
@@ -26,9 +25,16 @@ type Shoes struct {
 }
 
 type Customer struct {
-    Handoff    Handoff      `json:"handoff"`
+    Handoff     Handoff     `json:"handoff"`
     Shoes
 }
+
+// type Customer struct {
+//     Handoff     Handoff     `json:"handoff"`
+//     Size        int         `json:"size"`
+//     Sex         Sex         `json:"sex"`
+// }
+
 
 type name string
 

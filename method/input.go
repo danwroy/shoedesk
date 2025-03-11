@@ -57,15 +57,15 @@ func reverselookup[K comparable, V fmt.Stringer](m map[K]V) (map[string]K, error
     // V has to be constrained against fmt.Stringer in order to call .String() on values
     // Also had to add a .String() to var name for this to work
 
-    var r map[string]K
+    var r map[string]K = make(map[string]K)
 
     for k, v := range m {
 
         name := v.String()
-        _, ok := r[norm(name)]      // normalized for lookup
+        _, ok := r[norm(name)]
 
         if !ok {                    // only store if value not in map
-            r[norm(name)] = k
+            r[norm(name)] = k       // use normalized string
         }else{
             return r, fmt.Errorf("Duplicate error: %s occurs more than once", name)
         }

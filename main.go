@@ -17,10 +17,10 @@ func main() {
     // All routed methods
     route.HandleFunc("GET /", m.Pull)
     route.HandleFunc("PATCH /", m.Update)
-    route.HandleFunc("GET /{sex}", m.Pull)
-    route.HandleFunc("PATCH /{sex}", m.Update)
-    route.HandleFunc("GET /{sex}/{size}", m.Pull)
-    route.HandleFunc("PATCH /{sex}/{size}", m.Update)
+    route.HandleFunc("GET /{sex}/", m.Pull)
+    route.HandleFunc("PATCH /{sex}/", m.Update)
+    route.HandleFunc("GET /{sex}/{size}/", m.Pull)
+    route.HandleFunc("PATCH /{sex}/{size}/", m.Update)
 
     server := http.Server{
         Addr: ":8080",
@@ -30,4 +30,5 @@ func main() {
     // Activate server
     fmt.Println("Server listening on port ", server.Addr)
     server.ListenAndServe()
+    return
 }
